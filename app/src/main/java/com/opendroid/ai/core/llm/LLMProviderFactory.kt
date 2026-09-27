@@ -43,6 +43,7 @@ class LLMProviderFactory @Inject constructor(
     private val gemmaProvider: Provider<GemmaProvider>,
     private val liteRTLMProvider: Provider<LiteRTLMProvider>,
     private val hybridOnDeviceProvider: Provider<HybridOnDeviceProvider>,
+    private val nimProvider: Provider<NIMProvider>,
     private val settingsRepository: SettingsRepository,
     private val onDeviceLatencyTracker: OnDeviceLatencyTracker,
     private val actionDispatcher: dagger.Lazy<ActionDispatcher>,
@@ -69,6 +70,7 @@ class LLMProviderFactory @Inject constructor(
             "Gemma 4 (On-device)" -> hybridOnDeviceProvider.get()
             // Direct backend access (for advanced users / testing)
             "LiteRT-LM (On-device)" -> liteRTLMProvider.get()
+            "NIM Triple" -> nimProvider.get()
             else -> {
                 Log.w(TAG, "Unknown LLM provider persisted; falling back to Google Gemini.")
                 geminiProvider.get()
@@ -122,6 +124,7 @@ class LLMProviderFactory @Inject constructor(
             "Custom OpenAI Compatible" ->
                 config.customEndpoints[provider].orEmpty().isNotBlank() &&
                     config.apiKeys[provider].orEmpty().isNotBlank()
+            "NIM Triple" -> config.apiKeys[provider].orEmpty().isNotBlank()
             else -> {
                 val model = config.selectedModelFor(provider)
                 !ProviderCatalog.requiresApiKey(provider) ||

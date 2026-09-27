@@ -12,11 +12,11 @@ android {
     compileSdk 36
 
     defaultConfig {
-        applicationId "com.opendroid.aiagent"
+        applicationId "com.aetheria.jarvis"
         minSdk 26
         targetSdk 36
-        versionCode 8
-        versionName "1.0.7"
+        versionCode 1
+        versionName "0.1.0-alpha"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -96,8 +96,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_21
-        targetCompatibility JavaVersion.VERSION_21
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true
@@ -176,9 +176,9 @@ android {
 // `org.jetbrains.kotlin.android` plugin any more) and carries the same compiler
 // flags this block set before the migration.
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(17)
     compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
         freeCompilerArgs.addAll(
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
             "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"

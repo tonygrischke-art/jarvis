@@ -14,6 +14,7 @@ object ProviderCatalog {
 
     const val ON_DEVICE = "On-Device AI"
     const val LEGACY_ON_DEVICE = "Gemma 4 (On-device)"
+    const val NIM = "NIM Triple"
 
     /**
      * The model a provider starts on before its live list has been fetched.
@@ -39,6 +40,8 @@ object ProviderCatalog {
         ProviderSpec("Ollama", "llama3"),
         ProviderSpec(ON_DEVICE, "gemma-4-on-device"),
         ProviderSpec("LiteRT-LM (On-device)", "gemma3-1b-it"),
+        // NVIDIA NIM Triple Models
+        ProviderSpec(NIM, "nim-triple"),
         // Compatibility entry for the directly addressable AI Core backend.
         // Its persisted key is normalized to the unified on-device provider.
         ProviderSpec(LEGACY_ON_DEVICE, "gemma-4-on-device", ON_DEVICE)
@@ -72,7 +75,8 @@ object ProviderCatalog {
         "Together AI",
         "Cohere",
         "DeepSeek",
-        "Custom OpenAI Compatible" -> true
+        "Custom OpenAI Compatible",
+        "NIM Triple" -> true
         else -> false
     }
 

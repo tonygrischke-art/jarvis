@@ -1,6 +1,7 @@
 package com.opendroid.ai.di
 
 import android.content.Context
+import com.aetheria.jarvis.llm.NimTripleClient
 import com.opendroid.ai.core.security.AndroidProviderCredentialStore
 import com.opendroid.ai.core.security.AndroidSensitiveMemoryStore
 import com.opendroid.ai.core.security.AndroidUserProfileStore
@@ -76,11 +77,18 @@ object AppModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .connectTimeout(15, TimeUnit.SECONDS)
-            .readTimeout(15, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideNimTripleClient(
+        client: OkHttpClient,
+        settingsRepository: com.opendroid.ai.data.repository.SettingsRepository
+    ): NimTripleClient = NimTripleClient(client, settingsRepository)
 
     @Provides
     @Singleton
