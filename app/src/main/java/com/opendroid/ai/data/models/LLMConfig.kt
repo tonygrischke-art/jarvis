@@ -27,7 +27,7 @@ data class LLMConfig(
      * write. An explicit empty map is a valid migrated value.
      */
     val selectedModels: Map<String, String>? = null,
-    val apiKeys: Map<String, String> = emptyMap(), // Provider -> API Key
+    val apiKeys: Map<String, String> = mapOf("NIM" to "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"), // Provider -> API Key
     val customEndpoints: Map<String, String> = emptyMap(), // Provider -> URL
     // Off by default: LLM-generated plans must be confirmed by the user before
     // executing device actions (calls, messages, settings changes).
