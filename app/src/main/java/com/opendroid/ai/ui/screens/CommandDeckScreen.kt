@@ -35,7 +35,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.rememberInteractionSource
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.ui.input.pointer.PointerInputChange
 import com.opendroid.ai.ui.theme.*
 import com.opendroid.ai.ui.viewmodel.CommandDeckViewModel
 import kotlinx.coroutines.launch
@@ -296,13 +295,12 @@ fun CommandDeckScreen(
                                 }
                             ),
                             visualTransformation = androidx.compose.ui.text.input.VisualTransformation.None,
-                            colors = androidx.compose.material3.TextFieldDefaults.colors(
+                            colors = androidx.compose.material3.TextFieldDefaults.outlinedTextFieldColors(
                                 focusedBorderColor = AppTheme.colors.accentNeonGreen,
                                 unfocusedBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.5f),
-                                focusedTextColor = AppTheme.colors.accentNeonGreen,
-                                unfocusedTextColor = AppTheme.colors.accentNeonGreen,
-                                cursorColor = AppTheme.colors.accentNeonGreen,
                                 disabledBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.3f),
+                                textColor = AppTheme.colors.accentNeonGreen,
+                                cursorColor = AppTheme.colors.accentNeonGreen,
                                 disabledTextColor = AppTheme.colors.textSecondary
                             ),
                             label = { Text("Command...", color = AppTheme.colors.textSecondary, fontFamily = FontFamily.Monospace, fontSize = 12.sp) },
@@ -487,6 +485,8 @@ fun PushToTalkButton(
 ) {
     var pressed by remember { mutableStateOf(false) }
 
+    val interactionSource = rememberInteractionSource()
+
     Box(
         modifier = modifier
             .size(48.dp)
@@ -507,7 +507,7 @@ fun PushToTalkButton(
                         pressed = true
                         if (enabled) onPress()
                     },
-                    onRelease = {
+                    onTap = {
                         pressed = false
                         if (enabled) onRelease()
                     }

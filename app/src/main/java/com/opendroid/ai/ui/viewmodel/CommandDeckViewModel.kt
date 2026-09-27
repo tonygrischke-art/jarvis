@@ -106,6 +106,7 @@ class CommandDeckViewModel @Inject constructor(
     private fun executeViaTermux(command: String) {
         try {
             val context = com.opendroid.ai.OpenDroidApp.instance
+                ?: throw IllegalStateException("OpenDroidApp not initialized")
             val intent = android.content.Intent().apply {
                 setClassName("com.termux", "com.termux.app.RunCommandService")
                 action = "com.termux.RUN_COMMAND"

@@ -74,8 +74,4 @@ class OpenDroidApp : Application() {
             Log.e(TAG, "Failed to install crash handler", t)
         }
     }
-
-    companion object {
-        private const val TAG = "OpenDroidApp"
-    }
 }
