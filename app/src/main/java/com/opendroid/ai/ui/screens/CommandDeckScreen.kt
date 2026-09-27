@@ -3,7 +3,6 @@ package com.opendroid.ai.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.clipToBounds
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.rememberInteractionSource
@@ -20,6 +19,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.clip
 import androidx.compose.ui.input.keyboard.KeyboardType
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -35,6 +35,7 @@ import androidx.compose.ui.windowInsets.WindowInsets
 import androidx.compose.ui.windowInsets.WindowInsetsType
 import androidx.compose.ui.windowInsets.LocalWindowInsets
 import androidx.compose.ui.windowInsets.consumeWindowInsets
+import androidx.compose.ui.windowInsets.imePadding
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.activity.compose.rememberPermissionState
 import androidx.compose.ui.input.pointer.pointerInput
