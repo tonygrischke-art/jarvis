@@ -10,6 +10,7 @@ import com.opendroid.ai.core.llm.ResponseFormat
 import com.opendroid.ai.data.models.ChatMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
