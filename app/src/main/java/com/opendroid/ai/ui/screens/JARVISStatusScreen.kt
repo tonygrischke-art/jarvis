@@ -43,7 +43,7 @@ fun JARVISStatusScreen(
         // Header
         Card(
             modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = AppTheme.colors.primaryContainer)
+            colors = CardDefaults.cardColors(containerColor = AppTheme.colors.accentCyan)
         ) {
             Column(modifier = Modifier.padding(24.dp)) {
                 Row(
@@ -56,18 +56,18 @@ fun JARVISStatusScreen(
                             text = "JARVIS",
                             fontSize = 28.sp,
                             fontWeight = FontWeight.Bold,
-                            color = AppTheme.colors.onPrimaryContainer
+                            color = AppTheme.colors.textPrimary
                         )
                         Text(
                             text = "Autonomous Form-Filling Agent",
                             fontSize = 14.sp,
-                            color = AppTheme.colors.onPrimaryContainer.copy(alpha = 0.8f)
+                            color = AppTheme.colors.textPrimary.copy(alpha = 0.8f)
                         )
                     }
                     Icon(
                         imageVector = Icons.Default.SmartToy,
                         contentDescription = "JARVIS",
-                        tint = AppTheme.colors.onPrimaryContainer,
+                        tint = AppTheme.colors.textPrimary,
                         modifier = Modifier.size(48.dp)
                     )
                 }
@@ -77,7 +77,7 @@ fun JARVISStatusScreen(
         // Connection Status
         Card(
             modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = AppTheme.colors.surfaceContainer)
+            colors = CardDefaults.cardColors(containerColor = AppTheme.colors.cardBackground)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
@@ -85,7 +85,7 @@ fun JARVISStatusScreen(
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     fontFamily = FontFamily.Monospace,
-                    color = AppTheme.colors.primary
+                    color = AppTheme.colors.accentCyan
                 )
                 Spacer(modifier = Modifier.height(12.dp))
 
@@ -106,12 +106,12 @@ fun JARVISStatusScreen(
                                 text = "NIM API",
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.Medium,
-                                color = AppTheme.colors.onSurface
+                                color = AppTheme.colors.textPrimary
                             )
                             Text(
                                 text = if (isNimConfigured) "Connected" else "Not configured",
                                 fontSize = 12.sp,
-                                color = AppTheme.colors.onSurfaceVariant
+                                color = AppTheme.colors.textSecondary
                             )
                         }
                     }
@@ -127,7 +127,7 @@ fun JARVISStatusScreen(
         // Active Provider
         Card(
             modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = AppTheme.colors.surfaceContainer)
+            colors = CardDefaults.cardColors(containerColor = AppTheme.colors.cardBackground)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
@@ -135,7 +135,7 @@ fun JARVISStatusScreen(
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     fontFamily = FontFamily.Monospace,
-                    color = AppTheme.colors.primary
+                    color = AppTheme.colors.accentCyan
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 Row(
@@ -146,12 +146,12 @@ fun JARVISStatusScreen(
                         text = activeProvider,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
-                        color = AppTheme.colors.onSurface
+                        color = AppTheme.colors.textPrimary
                     )
                     Text(
                         text = config.activeModel,
                         fontSize = 12.sp,
-                        color = AppTheme.colors.onSurfaceVariant
+                        color = AppTheme.colors.textSecondary
                     )
                 }
             }
@@ -160,7 +160,7 @@ fun JARVISStatusScreen(
         // Quick Actions
         Card(
             modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = AppTheme.colors.surfaceContainer)
+            colors = CardDefaults.cardColors(containerColor = AppTheme.colors.cardBackground)
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
@@ -168,7 +168,7 @@ fun JARVISStatusScreen(
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     fontFamily = FontFamily.Monospace,
-                    color = AppTheme.colors.primary
+                    color = AppTheme.colors.accentCyan
                 )
                 Spacer(modifier = Modifier.height(12.dp))
 
@@ -204,7 +204,7 @@ fun JARVISStatusScreen(
                     Button(
                         onClick = { /* TODO: Start form filling test */ },
                         modifier = Modifier.weight(1f),
-                        colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.primary)
+                        colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.accentCyan)
                     ) {
                         Icon(Icons.Default.PlayArrow, contentDescription = "Start", modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(8.dp))
@@ -227,7 +227,7 @@ fun JARVISStatusScreen(
         Text(
             text = "JARVIS 0.1.0-alpha | Build 1",
             fontSize = 10.sp,
-            color = AppTheme.colors.onSurfaceVariant,
+            color = AppTheme.colors.textSecondary,
             textAlign = androidx.compose.ui.text.TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )

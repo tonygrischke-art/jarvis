@@ -207,7 +207,7 @@ Be concise and structured.""",
      */
     suspend fun classifyIntent(userQuery: String): String {
         val request = LLMRequest(
-            systemPrompt = modelConfigs[ModelRole.FAST_ROUTER]!.systemPrompt,
+            systemPrompt = modelConfigs[ModelRole.FAST_ROUTER]!!.systemPrompt,
             messages = listOf(ChatMessage(
                 id = java.util.UUID.randomUUID().toString(),
                 text = userQuery,
@@ -229,7 +229,7 @@ Be concise and structured.""",
             prompt += "\n\nCurrent screen context: $screenContext"
         }
         val request = LLMRequest(
-            systemPrompt = modelConfigs[ModelRole.MAIN_REASONER]!.systemPrompt,
+            systemPrompt = modelConfigs[ModelRole.MAIN_REASONER]!!.systemPrompt,
             messages = listOf(ChatMessage(
                 id = java.util.UUID.randomUUID().toString(),
                 text = prompt,
@@ -248,7 +248,7 @@ Be concise and structured.""",
     suspend fun analyzeScreenshot(base64Image: String, question: String = "What do you see on this screen?"): String {
         val prompt = "Analyze this Android screenshot. User question: $question\n\nDescribe: 1) What app is open 2) What content is visible 3) Answer the user's question 4) Any important UI elements for automation"
         val request = LLMRequest(
-            systemPrompt = modelConfigs[ModelRole.VISION_DESCRIBER]!.systemPrompt,
+            systemPrompt = modelConfigs[ModelRole.VISION_DESCRIBER]!!.systemPrompt,
             messages = listOf(ChatMessage(
                 id = java.util.UUID.randomUUID().toString(),
                 text = prompt,

@@ -78,16 +78,16 @@ fun JARVISMainDashboard(
         topBar = {
             TopAppBar(
                 title = { Text("JARVIS", fontWeight = FontWeight.Bold, fontSize = 20.sp) },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = AppTheme.colors.surfaceContainer)
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = AppTheme.colors.surface)
             )
         },
         bottomBar = {
             NavigationBar(
-                containerColor = AppTheme.colors.surfaceContainer,
+                containerColor = AppTheme.colors.surface,
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
-                    .border(1.dp, AppTheme.colors.outline, RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                    .border(1.dp, AppTheme.colors.borderColor, RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
             ) {
                 tabs.forEach { tab ->
                     val isSelected = currentTab == tab
@@ -101,13 +101,13 @@ fun JARVISMainDashboard(
                             Icon(
                                 imageVector = tab.icon,
                                 contentDescription = tab.title,
-                                tint = if (isSelected) AppTheme.colors.primary else AppTheme.colors.onSurfaceVariant
+                                tint = if (isSelected) AppTheme.colors.accentCyan else AppTheme.colors.textSecondary
                             )
                         },
                         label = { Text(tab.title, fontSize = 10.sp) },
                         colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = AppTheme.colors.primary,
-                            unselectedIconColor = AppTheme.colors.onSurfaceVariant
+                            selectedIconColor = AppTheme.colors.accentCyan,
+                            unselectedIconColor = AppTheme.colors.textSecondary
                         )
                     )
                 }

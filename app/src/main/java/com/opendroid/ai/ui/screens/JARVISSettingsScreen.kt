@@ -58,7 +58,7 @@ fun JARVISSettingsScreen(
                         text = "JARVIS SETTINGS",
                         fontFamily = FontFamily.Monospace,
                         fontWeight = FontWeight.Bold,
-                        color = AppTheme.colors.onSurface,
+                        color = AppTheme.colors.textPrimary,
                         fontSize = 18.sp
                     )
                 },
@@ -67,7 +67,7 @@ fun JARVISSettingsScreen(
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = AppTheme.colors.surfaceContainer)
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = AppTheme.colors.surface)
             )
         },
         containerColor = AppTheme.colors.background,
@@ -83,7 +83,7 @@ fun JARVISSettingsScreen(
             // NIM API Key Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = AppTheme.colors.surfaceContainer)
+                colors = CardDefaults.cardColors(containerColor = AppTheme.colors.cardBackground)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(
@@ -97,12 +97,12 @@ fun JARVISSettingsScreen(
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = FontFamily.Monospace,
-                                color = AppTheme.colors.primary
+                                color = AppTheme.colors.accentCyan
                             )
                             Text(
                                 text = "NVIDIA NIM Triple Models (FastRouter + MainReasoner + Vision)",
                                 fontSize = 12.sp,
-                                color = AppTheme.colors.onSurfaceVariant
+                                color = AppTheme.colors.textSecondary
                             )
                         }
                         if (nimApiKey.isNotBlank()) {
@@ -129,13 +129,13 @@ fun JARVISSettingsScreen(
                                 Icon(
                                     imageVector = if (showKey) Icons.Default.VisibilityOff else Icons.Default.Visibility,
                                     contentDescription = if (showKey) "Hide API key" else "Show API key",
-                                    tint = AppTheme.colors.onSurfaceVariant
+                                    tint = AppTheme.colors.textSecondary
                                 )
                             }
                         },
                         colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = AppTheme.colors.primary,
-                            unfocusedBorderColor = AppTheme.colors.outline
+                            focusedBorderColor = AppTheme.colors.accentCyan,
+                            unfocusedBorderColor = AppTheme.colors.borderColor
                         ),
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -161,9 +161,9 @@ fun JARVISSettingsScreen(
                                     onBack()
                                 }
                             },
-                            colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.primary)
+                            colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.accentCyan)
                         ) {
-                            Text("SAVE", color = AppTheme.colors.onPrimary)
+                            Text("SAVE", color = AppTheme.colors.textPrimary)
                         }
                     }
                 }
@@ -172,7 +172,7 @@ fun JARVISSettingsScreen(
             // Info Card
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = AppTheme.colors.primaryContainer.copy(alpha = 0.2f))
+                colors = CardDefaults.cardColors(containerColor = AppTheme.colors.accentCyan.copy(alpha = 0.2f))
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(
@@ -182,7 +182,7 @@ fun JARVISSettingsScreen(
                         Icon(
                             imageVector = Icons.Default.Info,
                             contentDescription = "Info",
-                            tint = AppTheme.colors.primary,
+                            tint = AppTheme.colors.accentCyan,
                             modifier = Modifier.size(20.dp).padding(end = 12.dp)
                         )
                         Column {
@@ -191,7 +191,7 @@ fun JARVISSettingsScreen(
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = FontFamily.Monospace,
-                                color = AppTheme.colors.primary
+                                color = AppTheme.colors.accentCyan
                             )
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
@@ -204,7 +204,7 @@ fun JARVISSettingsScreen(
                                        "• MainReasoner: DeepSeek-Coder-1.3B (planning)\n" +
                                        "• VisionDescriber: LLaVA-1.6-Mistral-7B (screenshots)",
                                 fontSize = 12.sp,
-                                color = AppTheme.colors.onSurfaceVariant
+                                color = AppTheme.colors.textSecondary
                             )
                         }
                     }
@@ -214,7 +214,7 @@ fun JARVISSettingsScreen(
             // Provider Selection (read-only for now, NIM is primary)
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = AppTheme.colors.surfaceContainer)
+                colors = CardDefaults.cardColors(containerColor = AppTheme.colors.cardBackground)
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
@@ -222,7 +222,7 @@ fun JARVISSettingsScreen(
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily.Monospace,
-                        color = AppTheme.colors.primary
+                        color = AppTheme.colors.accentCyan
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Row(
@@ -235,12 +235,12 @@ fun JARVISSettingsScreen(
                                 text = "NIM Triple (Primary)",
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.Medium,
-                                color = AppTheme.colors.onSurface
+                                color = AppTheme.colors.textPrimary
                             )
                             Text(
                                 text = "FastRouter + MainReasoner + VisionDescriber",
                                 fontSize = 12.sp,
-                                color = AppTheme.colors.onSurfaceVariant
+                                color = AppTheme.colors.textSecondary
                             )
                         }
                         if (nimApiKey.isBlank()) {
