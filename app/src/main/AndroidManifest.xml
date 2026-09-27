@@ -44,8 +44,21 @@
     <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" tools:ignore="ProtectedPermissions"/>
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions"/>
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" tools:ignore="QueryAllPackagesPermission"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL"/>
     <!-- Shizuku multi-user binder delivery (see Shizuku-API provider docs). -->
     <uses-permission android:name="moe.shizuku.manager.permission.API_V23"/>
+
+    <!-- Package visibility for quick-launch targets -->
+    <queries>
+        <package android:name="com.termux" />
+        <package android:name="com.android.settings" />
+        <package android:name="com.google.android.documentsui" />
+        <package android:name="com.android.providers.downloads.ui" />
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="file" />
+        </intent>
+    </queries>
 
     <!--
         Hardware is optional so Play keeps shipping to ChromeOS, telephony-less
@@ -83,9 +96,15 @@
             android:name=".MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"
-            android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar"
+            android:launchMode="singleTask"
+            android:clearTaskOnLaunch="true"
+            android:stateNotNeeded="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHABLE_APP" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

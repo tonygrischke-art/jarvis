@@ -36,15 +36,15 @@ val DarkPalette = OpenDroidColors(
     borderColor = Color(0xFF27272A),     // Zinc 800 hairline border
     textPrimary = Color(0xFFFFFFFF),     // Pure white
     textSecondary = Color(0xFFA1A1AA),   // Zinc 400 silver
-    accentNeonGreen = Color(0xFFFFFFFF), // High-contrast monochrome (replaces green)
-    accentGreenButton = Color(0xFFFFFFFF), // Crisp white button
+    accentNeonGreen = Color(0xFF00FF00), // Terminal green
+    /** Calmer green for large filled button surfaces (neon is for thin marks only). */
+    accentGreenButton = Color(0xFF00FF00), // Terminal green
     accentPurple = Color(0xFFA855F7),    // Electric purple
     accentCyan = Color(0xFF38BDF8),      // Sky sapphire
     accentRed = Color(0xFFEF4444),       // Clean alert red
     accentOrange = Color(0xFFFF9500),
     isDark = true
 )
-
 // ── Light palette: Classic Pure White (#FFFFFF) ─────────────
 val LightPalette = OpenDroidColors(
     background = Color(0xFFFFFFFF),      // Classic pure white
