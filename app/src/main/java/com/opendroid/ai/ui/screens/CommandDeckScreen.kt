@@ -27,8 +27,15 @@ import androidx.compose.ui.windowInsets.NavigationBarsPadding
 import androidx.compose.ui.windowInsets.WindowInsets
 import androidx.compose.ui.windowInsets.WindowInsetsType
 import androidx.compose.ui.windowInsets.LocalWindowInsets
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.windowInsets.consumeWindowInsets
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.activity.compose.rememberPermissionState
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.rememberInteractionSource
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.ui.input.pointer.PointerInputChange
 import com.opendroid.ai.ui.theme.*
 import com.opendroid.ai.ui.viewmodel.CommandDeckViewModel
 import kotlinx.coroutines.launch
@@ -42,15 +49,13 @@ import kotlinx.coroutines.launch
 @Composable
 fun CommandDeckScreen(
     modifier: Modifier = Modifier,
-    viewModel: CommandDeckViewModel = viewModel(factory = CommandDeckViewModel.getInstance(
-        com.opendroid.ai.OpenDroidApp.instance.settingsRepository
-    ))
+    viewModel: CommandDeckViewModel = viewModel()
 ) {
     val context = LocalContext.current
-    val windowInsets = WindowInsets.consumeWindowInsets(LocalWindowInsets.current, WindowInsetsType.systemBars())
+    val windowInsets = consumeWindowInsets(LocalWindowInsets.current, WindowInsetsType.systemBars())
 
     var commandText by remember { mutableStateOf("") }
-    val coroutineScope = rememberCoroutineScope()
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     // Request microphone permission for push-to-talk
     val micPermission = rememberPermissionState("android.permission.RECORD_AUDIO")
@@ -121,7 +126,7 @@ fun CommandDeckScreen(
                         Text(
                             text = "JARVIS COMMAND DECK",
                             fontFamily = FontFamily.Monospace,
-                            fontWeight = FontWeight.Bold,
+                            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
                             fontSize = 14.sp,
                             color = AppTheme.colors.accentNeonGreen
                         )
@@ -261,7 +266,6 @@ fun CommandDeckScreen(
                             modifier = Modifier.padding(end = 8.dp),
                             onPress = {
                                 viewModel.addLog("🎤 Push-to-talk activated")
-                                // TODO: Integrate with SpeechRecognizer
                             },
                             onRelease = {
                                 viewModel.addLog("🎤 Push-to-talk released")
@@ -292,13 +296,12 @@ fun CommandDeckScreen(
                                 }
                             ),
                             visualTransformation = androidx.compose.ui.text.input.VisualTransformation.None,
-                            colors = OutlinedTextFieldDefaults.colors(
+                            colors = androidx.compose.material3.TextFieldDefaults.colors(
                                 focusedBorderColor = AppTheme.colors.accentNeonGreen,
                                 unfocusedBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.5f),
                                 focusedTextColor = AppTheme.colors.accentNeonGreen,
                                 unfocusedTextColor = AppTheme.colors.accentNeonGreen,
                                 cursorColor = AppTheme.colors.accentNeonGreen,
-                                backgroundColor = AppTheme.colors.background,
                                 disabledBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.3f),
                                 disabledTextColor = AppTheme.colors.textSecondary
                             ),
@@ -337,6 +340,7 @@ fun CommandDeckScreen(
         val cmd = commandText.trim()
         if (cmd.isNotEmpty()) {
             commandText = ""
+            keyboardController?.hide()
             viewModel.executeCommand(cmd)
         }
     }
@@ -421,7 +425,7 @@ fun TelemetryPill(
                     text = value,
                     fontFamily = FontFamily.Monospace,
                     fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
                     color = color
                 )
             }
@@ -465,7 +469,7 @@ fun QuickLaunchChip(
                 text = label,
                 fontFamily = FontFamily.Monospace,
                 fontSize = 10.sp,
-                fontWeight = FontWeight.Bold,
+                fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
                 color = AppTheme.colors.accentNeonGreen,
                 textAlign = TextAlign.Center
             )

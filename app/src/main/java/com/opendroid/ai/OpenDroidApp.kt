@@ -29,8 +29,15 @@ class OpenDroidApp : Application() {
 
     private val appScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
+    companion object {
+        private const val TAG = "OpenDroidApp"
+        var instance: OpenDroidApp? = null
+            private set
+    }
+
     override fun onCreate() {
         super.onCreate()
+        instance = this
 
         // Installed first so that a crash in any later startup step is captured.
         installCrashHandler()

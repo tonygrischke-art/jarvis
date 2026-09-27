@@ -9,12 +9,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.concurrent.ConcurrentLinkedQueue
+import javax.inject.Inject
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 /**
  * ViewModel for the Command Deck - Agentic Home Launcher
  * Manages terminal log stream, system telemetry, and command execution
  */
-class CommandDeckViewModel(
+@HiltViewModel
+class CommandDeckViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
@@ -120,12 +123,5 @@ class CommandDeckViewModel(
     override fun onCleared() {
         commandChannel.close()
         super.onCleared()
-    }
-
-    companion object {
-        private var INSTANCE: CommandDeckViewModel? = null
-        fun getInstance(repository: SettingsRepository): CommandDeckViewModel {
-            return INSTANCE ?: CommandDeckViewModel(repository).also { INSTANCE = it }
-        }
     }
 }
