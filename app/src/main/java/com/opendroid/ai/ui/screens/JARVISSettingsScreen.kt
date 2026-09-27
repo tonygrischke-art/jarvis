@@ -35,7 +35,7 @@ fun JARVISSettingsScreen(
         Text(
             "JARVIS Settings",
             style = MaterialTheme.typography.headlineMedium,
-            textAlign = androidx.compose.ui.text.TextAlign.Center
+            textAlign = TextAlign.Center
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -68,7 +68,7 @@ fun JARVISSettingsScreen(
         Text(
             "API Key stored securely in encrypted preferences",
             style = MaterialTheme.typography.bodySmall,
-            textAlign = androidx.compose.ui.text.TextAlign.Center
+            textAlign = TextAlign.Center
         )
     }
 }
