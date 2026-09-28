@@ -5,7 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.interaction.rememberInteractionSource
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -303,7 +303,7 @@ fun CommandDeckScreen(
                                 focusedBorderColor = AppTheme.colors.accentNeonGreen,
                                 unfocusedBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.5f),
                                 disabledBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.3f),
-                                textColor = AppTheme.colors.accentNeonGreen,
+                                inputTextColor = AppTheme.colors.accentNeonGreen,
                                 cursorColor = AppTheme.colors.accentNeonGreen,
                                 disabledTextColor = AppTheme.colors.textSecondary
                             ),
@@ -495,7 +495,7 @@ fun PushToTalkButton(
     enabled: Boolean
 ) {
     var pressed by remember { mutableStateOf(false) }
-    val interactionSource = rememberInteractionSource()
+    val interactionSource = remember { MutableInteractionSource() }
 
     Box(
         modifier = modifier
