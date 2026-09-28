@@ -52,7 +52,7 @@ jobs:
         run: |
           ./gradlew :app:dependencies --configuration debugRuntimeClasspath \
             -Pandroidx.compose.bom.version=2024.10.00 \
-            --no-daemon --offline || true  # Ignore failure; populates local ~/.gradle/caches
+            --no-daemon  # Run ONLINE to populate cache; offline fails on cold cache
 
       # Verify critical Compose artifacts exist in cache (diagnostic only)
       - name: Verify Compose BOM artifacts cached
