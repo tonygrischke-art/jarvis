@@ -86,15 +86,15 @@ fun CommandDeckScreen(
         modifier = modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
-            .padding(LocalWindowInsets.current.statusBars)
-            .padding(LocalWindowInsets.current.navigationBars)
-            .padding(LocalWindowInsets.current.ime)
+            .padding(LocalWindowInsets.current.statusBars.asPaddingValues())
+            .padding(LocalWindowInsets.current.navigationBars.asPaddingValues())
+            .padding(LocalWindowInsets.current.ime.asPaddingValues())
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(LocalWindowInsets.current.statusBars)
-                .padding(LocalWindowInsets.current.navigationBars),
+                .padding(LocalWindowInsets.current.statusBars.asPaddingValues())
+                .padding(LocalWindowInsets.current.navigationBars.asPaddingValues()),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             // ─── Top Header Bar: OLED Telemetry ───
@@ -301,7 +301,7 @@ fun CommandDeckScreen(
                                 focusedBorderColor = AppTheme.colors.accentNeonGreen,
                                 unfocusedBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.5f),
                                 disabledBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.3f),
-                                inputTextColor = AppTheme.colors.accentNeonGreen,
+                                textColor = AppTheme.colors.accentNeonGreen,
                                 cursorColor = AppTheme.colors.accentNeonGreen,
                                 disabledTextColor = AppTheme.colors.textSecondary
                             ),
