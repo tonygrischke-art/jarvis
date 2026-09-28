@@ -204,14 +204,13 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7'
     implementation 'androidx.activity:activity-compose:1.13.0'
 
-    // Jetpack Compose — BOM 2024.08.00 (stable Compose 1.6.x)
-    implementation platform('androidx.compose:compose-bom:2024.08.00')
-    implementation 'androidx.compose.ui:ui'
-    implementation 'androidx.compose.ui:ui-graphics'
-    implementation 'androidx.compose.ui:ui-tooling-preview'
+    // Jetpack Compose — explicit 1.6.0 versions (BOM 2024.08.00 not resolving modules)
+    implementation 'androidx.compose.ui:ui:1.6.0'
+    implementation 'androidx.compose.ui:ui-graphics:1.6.0'
+    implementation 'androidx.compose.ui:ui-tooling-preview:1.6.0'
     implementation 'androidx.compose.ui:ui-util:1.6.0'           // windowInsets APIs
-    implementation 'androidx.compose.material3:material3'
-    implementation 'androidx.compose.material:material-icons-extended'
+    implementation 'androidx.compose.material3:material3:1.6.0'
+    implementation 'androidx.compose.material:material-icons-extended:1.6.0'
     implementation 'androidx.compose.foundation:foundation:1.6.0'        // BorderStroke, rememberInteractionSource, clip()
     implementation 'androidx.compose.foundation:foundation-layout:1.6.0' // Arrangement, Column, Row, etc.
     implementation 'androidx.navigation:navigation-compose:2.9.8'
@@ -284,8 +283,7 @@ dependencies {
     // ActivityScenario for the accessibility instrumentation tests (#105); launches
     // the debug-source-set probe activity in-process.
     androidTestImplementation 'androidx.test:core:1.6.1'
-    androidTestImplementation platform('androidx.compose:compose-bom:2024.08.00')
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.6.0'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 }
