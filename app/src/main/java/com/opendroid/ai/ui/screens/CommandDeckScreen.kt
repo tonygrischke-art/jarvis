@@ -25,7 +25,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.LocalWindowInsets
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -36,7 +35,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.activity.compose.rememberPermissionState
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberPermissionState
 import com.opendroid.ai.ui.theme.*
 import com.opendroid.ai.ui.viewmodel.CommandDeckViewModel
 import kotlinx.coroutines.launch
@@ -46,7 +46,7 @@ import kotlinx.coroutines.launch
  * Replaces stock launcher with real-time agent execution stream,
  * push-to-talk voice/text command bar, and Termux integration.
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 fun CommandDeckScreen(
     modifier: Modifier = Modifier,
@@ -58,7 +58,7 @@ fun CommandDeckScreen(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     // Request microphone permission for push-to-talk
-    val micPermission = rememberPermissionState("android.permission.RECORD_AUDIO")
+    val micPermission = rememberPermissionState(android.Manifest.permission.RECORD_AUDIO)
 
     // Header telemetry
     val batteryLevel by viewModel.batteryLevel.collectAsState()
@@ -86,15 +86,13 @@ fun CommandDeckScreen(
         modifier = modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
-            .padding(LocalWindowInsets.current.statusBars.asPaddingValues())
-            .padding(LocalWindowInsets.current.navigationBars.asPaddingValues())
-            .padding(LocalWindowInsets.current.ime.asPaddingValues())
+            .padding(WindowInsets.systemBars.asPaddingValues())
+            .padding(WindowInsets.ime.asPaddingValues())
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(LocalWindowInsets.current.statusBars.asPaddingValues())
-                .padding(LocalWindowInsets.current.navigationBars.asPaddingValues()),
+                .padding(WindowInsets.systemBars.asPaddingValues()),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             // ─── Top Header Bar: OLED Telemetry ───
@@ -301,7 +299,7 @@ fun CommandDeckScreen(
                                 focusedBorderColor = AppTheme.colors.accentNeonGreen,
                                 unfocusedBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.5f),
                                 disabledBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.3f),
-                                inputTextColor = AppTheme.colors.accentNeonGreen,
+                                textColor = AppTheme.colors.accentNeonGreen,
                                 cursorColor = AppTheme.colors.accentNeonGreen,
                                 disabledTextColor = AppTheme.colors.textSecondary
                             ),
