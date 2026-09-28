@@ -47,7 +47,7 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
-      # Pre-warm Compose BOM 2026.06.01 resolution cache (main branch only)
+      # Pre-warm Compose BOM 2025.08.00 resolution cache (main branch only)
       - name: Warm Compose BOM cache
         if: github.ref == 'refs/heads/main'
         run: |
@@ -103,7 +103,7 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
-      # Pre-warm Compose BOM 2026.06.01 resolution cache (main branch only)
+      # Pre-warm Compose BOM 2025.08.00 resolution cache (main branch only)
       - name: Warm Compose BOM cache
         if: github.ref == 'refs/heads/main'
         run: |
@@ -160,7 +160,7 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
-      # Pre-warm Compose BOM 2026.06.01 resolution cache (main branch only)
+      # Pre-warm Compose BOM 2025.08.00 resolution cache (main branch only)
       - name: Warm Compose BOM cache
         if: github.ref == 'refs/heads/main'
         run: |
@@ -225,7 +225,7 @@ jobs:
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
-      # Pre-warm Compose BOM 2026.06.01 resolution cache (main branch only)
+      # Pre-warm Compose BOM 2025.08.00 resolution cache (main branch only)
       - name: Warm Compose BOM cache
         if: github.ref == 'refs/heads/main'
         run: |
