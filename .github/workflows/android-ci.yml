@@ -15,6 +15,7 @@ on:
       - 'website/**'
       - 'docs/**'
       - '**.md'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -22,6 +23,10 @@ permissions:
 concurrency:
   group: android-ci-${{ github.ref }}
   cancel-in-progress: true
+
+env:
+  # Bump this to force fresh Gradle dependency resolution (cache invalidation)
+  GRADLE_CACHE_VERSION: '1'
 
 jobs:
   build-and-test:
@@ -45,13 +50,13 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          cache-key-prefix: ${{ runner.os }}-gradle-${{ env.GRADLE_CACHE_VERSION }}
 
-      # Pre-warm Compose BOM 2024.10.00 resolution cache (main branch only)
+      # Pre-warm Compose BOM 2026.06.01 resolution cache (main branch only)
       - name: Warm Compose BOM cache
         if: github.ref == 'refs/heads/main'
         run: |
           ./gradlew :app:dependencies --configuration debugRuntimeClasspath \
-            -Pandroidx.compose.bom.version=2024.10.00 \
             --no-daemon  # Run ONLINE to populate cache; offline fails on cold cache
 
       # Verify critical Compose artifacts exist in cache (diagnostic only)
@@ -102,14 +107,14 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          cache-key-prefix: ${{ runner.os }}-gradle-${{ env.GRADLE_CACHE_VERSION }}
 
-      # Pre-warm Compose BOM 2024.10.00 resolution cache (main branch only)
+      # Pre-warm Compose BOM 2026.06.01 resolution cache (main branch only)
       - name: Warm Compose BOM cache
         if: github.ref == 'refs/heads/main'
         run: |
           ./gradlew :app:dependencies --configuration debugRuntimeClasspath \
-            -Pandroidx.compose.bom.version=2024.10.00 \
-            --no-daemon --offline || true
+            --no-daemon  # Run ONLINE to populate cache; offline fails on cold cache
 
       # Verify critical Compose artifacts exist in cache (diagnostic only)
       - name: Verify Compose BOM artifacts cached
@@ -160,14 +165,14 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          cache-key-prefix: ${{ runner.os }}-gradle-${{ env.GRADLE_CACHE_VERSION }}
 
-      # Pre-warm Compose BOM 2024.10.00 resolution cache (main branch only)
+      # Pre-warm Compose BOM 2026.06.01 resolution cache (main branch only)
       - name: Warm Compose BOM cache
         if: github.ref == 'refs/heads/main'
         run: |
           ./gradlew :app:dependencies --configuration debugRuntimeClasspath \
-            -Pandroidx.compose.bom.version=2024.10.00 \
-            --no-daemon --offline || true
+            --no-daemon  # Run ONLINE to populate cache; offline fails on cold cache
 
       # Verify critical Compose artifacts exist in cache (diagnostic only)
       - name: Verify Compose BOM artifacts cached
@@ -226,14 +231,14 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          cache-key-prefix: ${{ runner.os }}-gradle-${{ env.GRADLE_CACHE_VERSION }}
 
-      # Pre-warm Compose BOM 2024.10.00 resolution cache (main branch only)
+      # Pre-warm Compose BOM 2026.06.01 resolution cache (main branch only)
       - name: Warm Compose BOM cache
         if: github.ref == 'refs/heads/main'
         run: |
           ./gradlew :app:dependencies --configuration releaseRuntimeClasspath \
-            -Pandroidx.compose.bom.version=2024.10.00 \
-            --no-daemon --offline || true
+            --no-daemon  # Run ONLINE to populate cache; offline fails on cold cache
 
       # Verify critical Compose artifacts exist in cache (diagnostic only)
       - name: Verify Compose BOM artifacts cached
