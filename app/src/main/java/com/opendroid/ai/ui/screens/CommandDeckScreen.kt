@@ -300,9 +300,13 @@ fun CommandDeckScreen(
                                 focusedBorderColor = AppTheme.colors.accentNeonGreen,
                                 unfocusedBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.5f),
                                 disabledBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.3f),
-                                textColor = AppTheme.colors.accentNeonGreen,
                                 cursorColor = AppTheme.colors.accentNeonGreen,
                                 disabledTextColor = AppTheme.colors.textSecondary
+                            ),
+                            textStyle = TextStyle(
+                                color = AppTheme.colors.accentNeonGreen,
+                                fontFamily = FontFamily.Monospace,
+                                fontSize = 12.sp
                             ),
                             label = { Text("Command...", color = AppTheme.colors.textSecondary, fontFamily = FontFamily.Monospace, fontSize = 12.sp) },
                             placeholder = { Text("Enter command or 'help'", color = AppTheme.colors.textSecondary.copy(alpha = 0.5f), fontFamily = FontFamily.Monospace, fontSize = 12.sp) }
