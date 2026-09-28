@@ -21,9 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.GraphicsLayerScope
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalWindowInsets
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -33,9 +35,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.windowInsets.WindowInsets
-import androidx.compose.ui.windowInsets.WindowInsetsType
-import androidx.compose.ui.windowInsets.consumeWindowInsets
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.activity.compose.rememberPermissionState
 import com.opendroid.ai.ui.theme.*
@@ -87,12 +86,15 @@ fun CommandDeckScreen(
         modifier = modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
-            .consumeWindowInsets(WindowInsetsType.systemBars(), WindowInsetsType.ime())
+            .padding(LocalWindowInsets.current.statusBars)
+            .padding(LocalWindowInsets.current.navigationBars)
+            .padding(LocalWindowInsets.current.ime)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .consumeWindowInsets(WindowInsetsType.systemBars(), WindowInsetsType.ime()),
+                .padding(LocalWindowInsets.current.statusBars)
+                .padding(LocalWindowInsets.current.navigationBars),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             // ─── Top Header Bar: OLED Telemetry ───
@@ -299,7 +301,7 @@ fun CommandDeckScreen(
                                 focusedBorderColor = AppTheme.colors.accentNeonGreen,
                                 unfocusedBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.5f),
                                 disabledBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.3f),
-                                textColor = AppTheme.colors.accentNeonGreen,
+                                inputTextColor = AppTheme.colors.accentNeonGreen,
                                 cursorColor = AppTheme.colors.accentNeonGreen,
                                 disabledTextColor = AppTheme.colors.textSecondary
                             ),
