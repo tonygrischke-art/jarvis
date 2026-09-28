@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import com.opendroid.ai.ui.theme.*
 import com.opendroid.ai.ui.viewmodel.CommandDeckViewModel
@@ -270,7 +271,7 @@ fun CommandDeckScreen(
                                 viewModel.addLog("🎤 Push-to-talk released")
                             },
                             isRecording = false,
-                            enabled = micPermission.granted
+                            enabled = micPermission.status == PermissionStatus.Granted
                         )
 
                         // Command input field
