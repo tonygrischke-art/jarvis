@@ -204,31 +204,17 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7'
     implementation 'androidx.activity:activity-compose:1.13.0'
 
-    // Jetpack Compose — explicit versions (BOM 2025.08.00 resolves to pre-1.7 where APIs differ)
-    // Compose 1.6.10: stable, has BorderStroke in foundation, rememberInteractionSource in foundation.interaction
-    def composeVersion = '1.6.10'
-    def composeMaterial3Version = '1.2.1'
-    def composeCompilerVersion = '1.5.14'
-
-    implementation "androidx.compose.ui:ui:$composeVersion"
-    implementation "androidx.compose.ui:ui-graphics:$composeVersion"
-    implementation "androidx.compose.ui:ui-tooling-preview:$composeVersion"
-    implementation "androidx.compose.ui:ui-util:$composeVersion"
-    implementation "androidx.compose.material3:material3:$composeMaterial3Version"
-    implementation "androidx.compose.material:material-icons-extended:$composeVersion"
-    implementation "androidx.compose.foundation:foundation:$composeVersion"
-    implementation "androidx.compose.foundation:foundation-layout:$composeVersion"
-    implementation "androidx.compose.runtime:runtime:$composeVersion"
-    implementation "androidx.compose.runtime:runtime-livedata:$composeVersion"
-    implementation "androidx.compose.runtime:runtime-rxjava2:$composeVersion"
-    implementation "androidx.compose.animation:animation:$composeVersion"
-    implementation "androidx.compose.animation:animation-core:$composeVersion"
-    implementation "androidx.compose.ui:ui-text:$composeVersion"
-    implementation "androidx.compose.ui:ui-text-google-fonts:$composeVersion"
-    implementation "androidx.compose.ui:ui-unit:$composeVersion"
-    implementation "androidx.compose.ui:ui-geometry:$composeVersion"
+    // Jetpack Compose — BOM 2024.06.01 (original working version)
+    implementation platform('androidx.compose:compose-bom:2024.06.01')
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-graphics'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.ui:ui-util'           // windowInsets APIs
+    implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.compose.material:material-icons-extended'
+    implementation 'androidx.compose.foundation:foundation'        // BorderStroke, rememberInteractionSource, clip()
+    implementation 'androidx.compose.foundation:foundation-layout' // Arrangement, Column, Row, etc.
     implementation 'androidx.navigation:navigation-compose:2.9.8'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.24"
 
     // Room Database
     implementation 'androidx.room:room-runtime:2.8.4'
@@ -298,9 +284,8 @@ dependencies {
     // ActivityScenario for the accessibility instrumentation tests (#105); launches
     // the debug-source-set probe activity in-process.
     androidTestImplementation 'androidx.test:core:1.6.1'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$composeVersion"
-    androidTestImplementation "androidx.compose.ui:ui-test-manifest:$composeVersion"
-    androidTestImplementation "androidx.compose.ui:ui-test:$composeVersion"
-    debugImplementation "androidx.compose.ui:ui-tooling:$composeVersion"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$composeVersion"
+    androidTestImplementation platform('androidx.compose:compose-bom:2024.06.01')
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
 }
