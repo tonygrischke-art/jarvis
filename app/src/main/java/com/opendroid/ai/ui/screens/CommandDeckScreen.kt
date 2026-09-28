@@ -4,8 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.rememberInteractionSource
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.rememberInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -20,11 +20,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.clip
-import androidx.compose.ui.input.keyboard.KeyboardType
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardActions
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -38,7 +42,6 @@ import androidx.compose.ui.windowInsets.consumeWindowInsets
 import androidx.compose.ui.windowInsets.imePadding
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.activity.compose.rememberPermissionState
-import androidx.compose.ui.input.pointer.pointerInput
 import com.opendroid.ai.ui.theme.*
 import com.opendroid.ai.ui.viewmodel.CommandDeckViewModel
 import kotlinx.coroutines.launch
@@ -347,7 +350,6 @@ fun CommandDeckScreen(
 
 // ─── Helper Functions (outside Composable) ───
 
-@Composable
 fun launchPackage(context: android.content.Context, packageName: String, viewModel: CommandDeckViewModel) {
     try {
         val pm = context.packageManager
@@ -363,7 +365,6 @@ fun launchPackage(context: android.content.Context, packageName: String, viewMod
     }
 }
 
-@Composable
 fun launchFilesApp(context: android.content.Context, viewModel: CommandDeckViewModel) {
     try {
         val intent = android.content.Intent(android.content.Intent.ACTION_VIEW).apply {
@@ -376,7 +377,6 @@ fun launchFilesApp(context: android.content.Context, viewModel: CommandDeckViewM
     }
 }
 
-@Composable
 fun launchSettings(context: android.content.Context, viewModel: CommandDeckViewModel) {
     try {
         val intent = android.content.Intent(android.provider.Settings.ACTION_SETTINGS)
@@ -385,6 +385,18 @@ fun launchSettings(context: android.content.Context, viewModel: CommandDeckViewM
     } catch (e: Exception) {
         viewModel.addLog("Settings launch failed: ${e.message}")
     }
+}
+
+// ─── Command Execution ───
+
+fun executeCommand(
+    command: String,
+    keyboardController: androidx.compose.ui.platform.SoftwareKeyboardController?,
+    viewModel: CommandDeckViewModel
+) {
+    viewModel.addLog("Executing: $command")
+    keyboardController?.hide()
+    viewModel.executeCommand(command)
 }
 
 // ─── Reusable Components ───
