@@ -24,10 +24,6 @@ concurrency:
   group: android-ci-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  # Bump this to force fresh Gradle dependency resolution (cache invalidation)
-  GRADLE_CACHE_VERSION: '1'
-
 jobs:
   build-and-test:
     name: Unit tests and debug build
@@ -106,7 +102,6 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-          cache-key-prefix: ${{ runner.os }}-gradle-${{ env.GRADLE_CACHE_VERSION }}
 
       # Pre-warm Compose BOM 2026.06.01 resolution cache (main branch only)
       - name: Warm Compose BOM cache
@@ -164,7 +159,6 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-          cache-key-prefix: ${{ runner.os }}-gradle-${{ env.GRADLE_CACHE_VERSION }}
 
       # Pre-warm Compose BOM 2026.06.01 resolution cache (main branch only)
       - name: Warm Compose BOM cache
@@ -230,7 +224,6 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-          cache-key-prefix: ${{ runner.os }}-gradle-${{ env.GRADLE_CACHE_VERSION }}
 
       # Pre-warm Compose BOM 2026.06.01 resolution cache (main branch only)
       - name: Warm Compose BOM cache
