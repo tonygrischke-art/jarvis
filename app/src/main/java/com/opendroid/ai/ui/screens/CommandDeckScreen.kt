@@ -218,7 +218,7 @@ fun CommandDeckScreen(
                         icon = Icons.Default.Terminal,
                         label = "TERMUX",
                         onClick = {
-                            launchPackage("com.termux")
+                            launchPackage(context, "com.termux")
                             viewModel.addLog("Launching Termux")
                         }
                     )
@@ -226,7 +226,7 @@ fun CommandDeckScreen(
                         icon = Icons.Default.Folder,
                         label = "FILES",
                         onClick = {
-                            launchFilesApp()
+                            launchFilesApp(context)
                             viewModel.addLog("Opening Files")
                         }
                     )
@@ -234,7 +234,7 @@ fun CommandDeckScreen(
                         icon = Icons.Default.Settings,
                         label = "SETTINGS",
                         onClick = {
-                            launchSettings()
+                            launchSettings(context)
                             viewModel.addLog("Opening Settings")
                         }
                     )
@@ -294,7 +294,7 @@ fun CommandDeckScreen(
                             keyboardActions = androidx.compose.foundation.text.KeyboardActions(
                                 onDone = {
                                     if (commandText.isNotBlank()) {
-                                        executeCommand()
+                                        executeCommand(commandText, keyboardController, viewModel)
                                     }
                                 }
                             ),
@@ -313,7 +313,14 @@ fun CommandDeckScreen(
 
                         // Execute button
                         Button(
-                            onClick = { executeCommand() },
+                            onClick = {
+                                val cmd = commandText.trim()
+                                if (cmd.isNotEmpty()) {
+                                    commandText = ""
+                                    keyboardController?.hide()
+                                    viewModel.executeCommand(cmd)
+                                }
+                            },
                             modifier = Modifier
                                 .padding(start = 8.dp)
                                 .height(48.dp)
@@ -336,56 +343,47 @@ fun CommandDeckScreen(
             }
         }
     }
+}
 
-    // ─── Helper Functions ───
-    fun executeCommand() {
-        val cmd = commandText.trim()
-        if (cmd.isNotEmpty()) {
-            commandText = ""
-            keyboardController?.hide()
-            viewModel.executeCommand(cmd)
-        }
-    }
+// ─── Helper Functions (outside Composable) ───
 
-    fun launchPackage(packageName: String) {
-        val context = LocalContext.current
-        try {
-            val pm = context.packageManager
-            val intent = pm.getLaunchIntentForPackage(packageName)
-            if (intent != null) {
-                intent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
-                context.startActivity(intent)
-            } else {
-                viewModel.addLog("Package not found: $packageName")
-            }
-        } catch (e: Exception) {
-            viewModel.addLog("Launch failed: ${e.message}")
-        }
-    }
-
-    fun launchFilesApp() {
-        val context = LocalContext.current
-        try {
-            val intent = android.content.Intent(android.content.Intent.ACTION_VIEW).apply {
-                data = android.net.Uri.parse("file:///sdcard/")
-                addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            context.startActivity(intent)
-        } catch (e: Exception) {
-            // Fallback to DocumentsUI
-            launchPackage("com.google.android.documentsui")
-        }
-    }
-
-    fun launchSettings() {
-        val context = LocalContext.current
-        try {
-            val intent = android.content.Intent(android.provider.Settings.ACTION_SETTINGS)
+@Composable
+fun launchPackage(context: android.content.Context, packageName: String, viewModel: CommandDeckViewModel) {
+    try {
+        val pm = context.packageManager
+        val intent = pm.getLaunchIntentForPackage(packageName)
+        if (intent != null) {
             intent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
-        } catch (e: Exception) {
-            viewModel.addLog("Settings launch failed: ${e.message}")
+        } else {
+            viewModel.addLog("Package not found: $packageName")
         }
+    } catch (e: Exception) {
+        viewModel.addLog("Launch failed: ${e.message}")
+    }
+}
+
+@Composable
+fun launchFilesApp(context: android.content.Context, viewModel: CommandDeckViewModel) {
+    try {
+        val intent = android.content.Intent(android.content.Intent.ACTION_VIEW).apply {
+            data = android.net.Uri.parse("file:///sdcard/")
+            addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        context.startActivity(intent)
+    } catch (e: Exception) {
+        launchPackage(context, "com.google.android.documentsui", viewModel)
+    }
+}
+
+@Composable
+fun launchSettings(context: android.content.Context, viewModel: CommandDeckViewModel) {
+    try {
+        val intent = android.content.Intent(android.provider.Settings.ACTION_SETTINGS)
+        intent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+    } catch (e: Exception) {
+        viewModel.addLog("Settings launch failed: ${e.message}")
     }
 }
 
