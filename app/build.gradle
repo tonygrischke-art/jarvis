@@ -213,6 +213,7 @@ dependencies {
     // Compose 1.6.10: stable, has BorderStroke in foundation, rememberInteractionSource in foundation.interaction
     def composeVersion = '1.6.10'
     def composeMaterial3Version = '1.2.1'
+    def composeMaterialVersion = '1.6.0'
     def composeCompilerVersion = '1.5.14'
 
     implementation "androidx.compose.ui:ui:$composeVersion"
@@ -220,7 +221,7 @@ dependencies {
     implementation "androidx.compose.ui:ui-tooling-preview:$composeVersion"
     implementation "androidx.compose.ui:ui-util:$composeVersion"
     implementation "androidx.compose.material3:material3:$composeMaterial3Version"
-    implementation "androidx.compose.material:material:$composeVersion"
+    implementation "androidx.compose.material:material:$composeMaterialVersion"
     implementation "androidx.compose.foundation:foundation:$composeVersion"
     implementation "androidx.compose.foundation:foundation-layout:$composeVersion"
     implementation "androidx.compose.runtime:runtime:$composeVersion"
