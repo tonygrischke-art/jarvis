@@ -20,7 +20,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.clip
+import androidx.compose.ui.graphics.GraphicsLayerScope
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -33,9 +33,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.windowInsets.StatusBarsPadding
-import androidx.compose.ui.windowInsets.NavigationBarsPadding
-import androidx.compose.ui.windowInsets.imePadding
+import androidx.compose.ui.windowInsets.WindowInsets
+import androidx.compose.ui.windowInsets.WindowInsetsType
+import androidx.compose.ui.windowInsets.consumeWindowInsets
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.activity.compose.rememberPermissionState
 import com.opendroid.ai.ui.theme.*
@@ -87,15 +87,12 @@ fun CommandDeckScreen(
         modifier = modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
-            .statusBarsPadding()
-            .navigationBarsPadding()
-            .imePadding()
+            .consumeWindowInsets(WindowInsetsType.systemBars(), WindowInsetsType.ime())
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .statusBarsPadding()
-                .navigationBarsPadding(),
+                .consumeWindowInsets(WindowInsetsType.systemBars(), WindowInsetsType.ime()),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             // ─── Top Header Bar: OLED Telemetry ───
@@ -245,8 +242,7 @@ fun CommandDeckScreen(
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 4.dp)
-                    .navigationBarsPadding(),
+                    .padding(horizontal = 8.dp, vertical = 4.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = AppTheme.colors.background,
                     contentColor = AppTheme.colors.accentNeonGreen
@@ -303,7 +299,7 @@ fun CommandDeckScreen(
                                 focusedBorderColor = AppTheme.colors.accentNeonGreen,
                                 unfocusedBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.5f),
                                 disabledBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.3f),
-                                inputTextColor = AppTheme.colors.accentNeonGreen,
+                                textColor = AppTheme.colors.accentNeonGreen,
                                 cursorColor = AppTheme.colors.accentNeonGreen,
                                 disabledTextColor = AppTheme.colors.textSecondary
                             ),
@@ -505,7 +501,7 @@ fun PushToTalkButton(
                 else if (!enabled) AppTheme.colors.textSecondary.copy(alpha = 0.3f)
                 else AppTheme.colors.accentNeonGreen.copy(alpha = if (pressed) 1f else 0.3f)
             )
-            .clip(RoundedCornerShape(24.dp))
+            .graphicsLayer { clip = true }
             .border(
                 if (isRecording) BorderStroke(2.dp, Color.Red)
                 else BorderStroke(1.dp, AppTheme.colors.borderColor.copy(alpha = 0.5f)),
