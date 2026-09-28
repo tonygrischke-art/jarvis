@@ -237,6 +237,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-compose:2.9.8'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.24"
 
+    // Accompanist Permissions for runtime permission handling
+    implementation "com.google.accompanist:accompanist-permissions:0.37.3"
+
     // Room Database
     implementation 'androidx.room:room-runtime:2.8.4'
     implementation 'androidx.room:room-ktx:2.8.4'
