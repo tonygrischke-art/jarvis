@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -27,7 +28,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardActions
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -35,10 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.windowInsets.StatusBarsPadding
 import androidx.compose.ui.windowInsets.NavigationBarsPadding
-import androidx.compose.ui.windowInsets.WindowInsets
-import androidx.compose.ui.windowInsets.WindowInsetsType
-import androidx.compose.ui.windowInsets.LocalWindowInsets
-import androidx.compose.ui.windowInsets.consumeWindowInsets
 import androidx.compose.ui.windowInsets.imePadding
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.activity.compose.rememberPermissionState
@@ -58,7 +54,6 @@ fun CommandDeckScreen(
     viewModel: CommandDeckViewModel = viewModel()
 ) {
     val context = LocalContext.current
-    val windowInsets = consumeWindowInsets(LocalWindowInsets.current, WindowInsetsType.systemBars())
 
     var commandText by remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -92,7 +87,9 @@ fun CommandDeckScreen(
         modifier = modifier
             .fillMaxSize()
             .background(AppTheme.colors.background)
-            .padding(windowInsets)
+            .statusBarsPadding()
+            .navigationBarsPadding()
+            .imePadding()
     ) {
         Column(
             modifier = Modifier
@@ -221,7 +218,7 @@ fun CommandDeckScreen(
                         icon = Icons.Default.Terminal,
                         label = "TERMUX",
                         onClick = {
-                            launchPackage(context, "com.termux")
+                            launchPackage(context, "com.termux", viewModel)
                             viewModel.addLog("Launching Termux")
                         }
                     )
@@ -229,7 +226,7 @@ fun CommandDeckScreen(
                         icon = Icons.Default.Folder,
                         label = "FILES",
                         onClick = {
-                            launchFilesApp(context)
+                            launchFilesApp(context, viewModel)
                             viewModel.addLog("Opening Files")
                         }
                     )
@@ -237,7 +234,7 @@ fun CommandDeckScreen(
                         icon = Icons.Default.Settings,
                         label = "SETTINGS",
                         onClick = {
-                            launchSettings(context)
+                            launchSettings(context, viewModel)
                             viewModel.addLog("Opening Settings")
                         }
                     )
@@ -292,16 +289,16 @@ fun CommandDeckScreen(
                             maxLines = 3,
                             keyboardOptions = KeyboardOptions(
                                 keyboardType = KeyboardType.Text,
-                                imeAction = androidx.compose.ui.text.input.ImeAction.Done
+                                imeAction = ImeAction.Done
                             ),
-                            keyboardActions = androidx.compose.foundation.text.KeyboardActions(
+                            keyboardActions = KeyboardActions(
                                 onDone = {
                                     if (commandText.isNotBlank()) {
                                         executeCommand(commandText, keyboardController, viewModel)
                                     }
                                 }
                             ),
-                            visualTransformation = androidx.compose.ui.text.input.VisualTransformation.None,
+                            visualTransformation = VisualTransformation.None,
                             colors = TextFieldDefaults.outlinedTextFieldColors(
                                 focusedBorderColor = AppTheme.colors.accentNeonGreen,
                                 unfocusedBorderColor = AppTheme.colors.borderColor.copy(alpha = 0.5f),
@@ -498,7 +495,6 @@ fun PushToTalkButton(
     enabled: Boolean
 ) {
     var pressed by remember { mutableStateOf(false) }
-
     val interactionSource = rememberInteractionSource()
 
     Box(
