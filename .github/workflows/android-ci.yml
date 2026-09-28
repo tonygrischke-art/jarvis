@@ -45,7 +45,6 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-          arguments: --no-daemon
 
       # Pre-warm Compose BOM 2024.10.00 resolution cache (main branch only)
       - name: Warm Compose BOM cache
@@ -102,7 +101,6 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-          arguments: --no-daemon
 
       # Pre-warm Compose BOM 2024.10.00 resolution cache (main branch only)
       - name: Warm Compose BOM cache
@@ -160,7 +158,6 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-          arguments: --no-daemon
 
       # Pre-warm Compose BOM 2024.10.00 resolution cache (main branch only)
       - name: Warm Compose BOM cache
@@ -226,7 +223,6 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
-          arguments: --no-daemon
 
       # Pre-warm Compose BOM 2024.10.00 resolution cache (main branch only)
       - name: Warm Compose BOM cache
