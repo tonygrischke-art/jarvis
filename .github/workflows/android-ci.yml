@@ -45,9 +45,26 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          arguments: --no-daemon
+
+      # Pre-warm Compose BOM 2024.10.00 resolution cache (main branch only)
+      - name: Warm Compose BOM cache
+        if: github.ref == 'refs/heads/main'
+        run: |
+          ./gradlew :app:dependencies --configuration debugRuntimeClasspath \
+            -Pandroidx.compose.bom.version=2024.10.00 \
+            --no-daemon --offline || true  # Ignore failure; populates local ~/.gradle/caches
+
+      # Verify critical Compose artifacts exist in cache
+      - name: Verify Compose BOM artifacts cached
+        if: github.ref == 'refs/heads/main'
+        run: |
+          ls -la ~/.gradle/caches/modules-2/files-2.1/androidx.compose.foundation/foundation/
+          ls -la ~/.gradle/caches/modules-2/files-2.1/androidx.compose.ui/ui-util/
+          ls -la ~/.gradle/caches/modules-2/files-2.1/androidx.activity/activity-compose/
 
       - name: Run unit tests and build debug APK
-        run: ./gradlew testDebugUnitTest assembleDebug --stacktrace
+        run: ./gradlew testDebugUnitTest assembleDebug --stacktrace --no-daemon
 
       - name: Upload debug APK
         if: always()
@@ -85,11 +102,28 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          arguments: --no-daemon
+
+      # Pre-warm Compose BOM 2024.10.00 resolution cache (main branch only)
+      - name: Warm Compose BOM cache
+        if: github.ref == 'refs/heads/main'
+        run: |
+          ./gradlew :app:dependencies --configuration debugRuntimeClasspath \
+            -Pandroidx.compose.bom.version=2024.10.00 \
+            --no-daemon --offline || true
+
+      # Verify critical Compose artifacts exist in cache
+      - name: Verify Compose BOM artifacts cached
+        if: github.ref == 'refs/heads/main'
+        run: |
+          ls -la ~/.gradle/caches/modules-2/files-2.1/androidx.compose.foundation/foundation/
+          ls -la ~/.gradle/caches/modules-2/files-2.1/androidx.compose.ui/ui-util/
+          ls -la ~/.gradle/caches/modules-2/files-2.1/androidx.activity/activity-compose/
 
       # Pre-existing findings live in app/lint-baseline.xml; only new
       # findings fail this step.
       - name: Run Android Lint
-        run: ./gradlew :app:lintDebug --stacktrace
+        run: ./gradlew :app:lintDebug --stacktrace --no-daemon
 
       - name: Upload lint report
         if: always()
@@ -126,6 +160,23 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          arguments: --no-daemon
+
+      # Pre-warm Compose BOM 2024.10.00 resolution cache (main branch only)
+      - name: Warm Compose BOM cache
+        if: github.ref == 'refs/heads/main'
+        run: |
+          ./gradlew :app:dependencies --configuration debugRuntimeClasspath \
+            -Pandroidx.compose.bom.version=2024.10.00 \
+            --no-daemon --offline || true
+
+      # Verify critical Compose artifacts exist in cache
+      - name: Verify Compose BOM artifacts cached
+        if: github.ref == 'refs/heads/main'
+        run: |
+          ls -la ~/.gradle/caches/modules-2/files-2.1/androidx.compose.foundation/foundation/
+          ls -la ~/.gradle/caches/modules-2/files-2.1/androidx.compose.ui/ui-util/
+          ls -la ~/.gradle/caches/modules-2/files-2.1/androidx.activity/activity-compose/
 
       # GitHub-hosted Linux runners don't grant /dev/kvm access by default;
       # without it the emulator falls back to (much slower, often timing-out)
@@ -175,12 +226,29 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          arguments: --no-daemon
+
+      # Pre-warm Compose BOM 2024.10.00 resolution cache (main branch only)
+      - name: Warm Compose BOM cache
+        if: github.ref == 'refs/heads/main'
+        run: |
+          ./gradlew :app:dependencies --configuration releaseRuntimeClasspath \
+            -Pandroidx.compose.bom.version=2024.10.00 \
+            --no-daemon --offline || true
+
+      # Verify critical Compose artifacts exist in cache
+      - name: Verify Compose BOM artifacts cached
+        if: github.ref == 'refs/heads/main'
+        run: |
+          ls -la ~/.gradle/caches/modules-2/files-2.1/androidx.compose.foundation/foundation/
+          ls -la ~/.gradle/caches/modules-2/files-2.1/androidx.compose.ui/ui-util/
+          ls -la ~/.gradle/caches/modules-2/files-2.1/androidx.activity/activity-compose/
 
       # No signing secrets in CI. -PallowUnsignedRelease builds an unsigned,
       # uninstallable APK purely to exercise R8/ProGuard, which debug builds
       # never touch; a plain assembleRelease still refuses to run unsigned.
       - name: Build unsigned release APK
-        run: ./gradlew :app:assembleRelease -PallowUnsignedRelease --stacktrace
+        run: ./gradlew :app:assembleRelease -PallowUnsignedRelease --stacktrace --no-daemon
 
       # If R8 ever does strip something reflection needs, the minified APK is
       # what gets inspected (apkanalyzer/aapt) to see which class went missing.
