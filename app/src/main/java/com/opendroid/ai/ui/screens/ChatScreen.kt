@@ -154,7 +154,7 @@ fun ChatScreen(
     // including currentSessionId forces a re-anchor to the bottom on every chat switch.
     LaunchedEffect(currentSessionId, history.size, visibleAgentState) {
         if (history.isNotEmpty()) {
-            listState.animateScrollToItem(history.size - 1)
+            listState.animateScrollToItem(history.lastIndex)
         }
     }
 
