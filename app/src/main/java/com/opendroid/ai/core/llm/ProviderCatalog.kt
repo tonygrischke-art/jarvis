@@ -39,7 +39,7 @@ object ProviderCatalog {
         ProviderSpec("Custom OpenAI Compatible", "custom-model"),
         ProviderSpec("Ollama", "llama3"),
         ProviderSpec(ON_DEVICE, "gemma-4-on-device"),
-        ProviderSpec("LiteRT-LM (On-device)", "gemma3-1b-it"),
+        ProviderSpec("LiteRT-LM (On-device)", "gemma-4-e2b-it-litert"),
         // NVIDIA NIM Triple Models
         ProviderSpec(NIM, "nim-triple"),
         // Compatibility entry for the directly addressable AI Core backend.

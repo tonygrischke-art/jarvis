@@ -250,6 +250,20 @@ object OnDeviceModelRegistry {
             isRecommended = true,
             minSdk = 26,
             contextWindow = 1280
+        ),
+        OnDeviceModelSpec(
+            id = "gemma-4-e2b-it-abliterated-litert",
+            displayName = "Gemma 4 E2B-it Abliterated (LiteRT)",
+            family = "Gemma 4",
+            sizeLabel = "2B",
+            backend = OnDeviceBackend.LITERT_LM,
+            modelPath = "custom/gemma-4-e2b-it-abliterated",
+            modelFilename = "Gemma-4-E2B-it-abliterated.litertlm",
+            managedArtifact = null,
+            licenseUrl = "https://huggingface.co/google/gemma-4-E2B-it",
+            authRequired = false,
+            minSdk = 31,
+            contextWindow = 4096
         )
     )
 
