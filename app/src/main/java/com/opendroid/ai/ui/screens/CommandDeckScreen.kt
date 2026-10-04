@@ -74,10 +74,11 @@ fun CommandDeckScreen(
     val listState = rememberLazyListState()
 
     LaunchedEffect(logs.size) {
-    if (logs.isNotEmpty()) {
-        listState.animateScrollToItem(logs.lastIndex)
+        val currentLogs = logs
+        if (currentLogs.isNotEmpty() && currentLogs.lastIndex >= 0) {
+            listState.animateScrollToItem(currentLogs.lastIndex)
+        }
     }
-}
 
     // Initial log entry
     LaunchedEffect(Unit) {
